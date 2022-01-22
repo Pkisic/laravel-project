@@ -1,0 +1,1 @@
+<img src="{{$user->getImageUrl()}}" style="max-width: 80px;">
