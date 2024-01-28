@@ -11,7 +11,7 @@ class Brand extends Model
     
     protected $table = 'brands';
     
-    protected $fillable = ['name', 'description', 'url'];
+    protected $guarded = [];
     
     //RELATIONS
     public function products()
@@ -41,7 +41,7 @@ class Brand extends Model
     public function getBrandImage()
     {
         if(!empty($this->image)){
-            return url("/storage/brands/" . $this->image);
+            return url("/storage/Brand/" . $this->image);
         }
         return url('/themes/front/img/partner-img/5.jpg');
     }
@@ -73,7 +73,7 @@ class Brand extends Model
      * 
      * @return Collection [ App\Model\Brand ]
      */
-    public function getAllBrands()
+    public static function getAllBrands()
     {
         $allBrands = self::query()
                 ->orderBy('name','ASC')
