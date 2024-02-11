@@ -1,17 +1,31 @@
-/vendor/
-node_modules/
+# Laravel Specific files
+/vendor
+.env
+.env.backup
+.env.
 npm-debug.log
 yarn-error.log
+.fleet
+.
+.vscode
 
-# Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
-
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
-storage/*.key
-.env
+# Ignore system files
+.bash_history
+LICENSE_AFL.txt
+LICENSE.html
+LICENSE.txt
+LICENSE_EE*
+RELEASE_NOTES.txt
+.ssh/
+error_log
+.htpasswds/
+.htaccess
+php.ini.sample
+.modman/
+pkginfo
+nohup.out
 Homestead.yaml
 Homestead.json
-/.vagrant
+.vagrant/
+phpunit.result.cache
+laravel-project/storage/*
