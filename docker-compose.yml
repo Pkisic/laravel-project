@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0.20
+    container_name: mysql_ecommerce
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: laravel-ecommerce
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - 3306:3306
+    volumes:
+      - ./storage/db-data:/var/lib/mysql
+    networks:
+      - default
+  app:
+    build: .
+    container_name: app_ecommerce
+    restart: unless-stopped
+    expose:
+      - 9000
+    networks:
+      - default
+    volumes:
+      - ./src:/var/www/html
+      - ./src/public:/var/www/html/public
+    depends_on:
+      - mysql
+  nginx:
+    container_name: nginx_service
+    build:
+      context: .
+      dockerfile: ./resources/nginx/Dockerfile
+    volumes:
+    - ./src/public:/var/www/html/public
+    ports:
+      - 8000:80
+    depends_on:
+      - app
+    environment:
+      NGINX_FPM_HOST: app
+      NGINX_ROOT: /var/www/html/public
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge
