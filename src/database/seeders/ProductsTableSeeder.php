@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use \DB;
+use \Faker\Factory as FakerFactory;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -13,14 +15,14 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('products')->truncate();
-        $faker = \Faker\Factory::create();
+        DB::table('products')->truncate();
+        $faker = FakerFactory::create();
         
-        $productCategoryIds = \DB::table('product_categories')->get()->pluck('id');
-        $brandsIds = \DB::table('brands')->get()->pluck('id');
+        $productCategoryIds = DB::table('product_categories')->get()->pluck('id');
+        $brandsIds = DB::table('brands')->get()->pluck('id');
         
         for($i = 1; $i<=1000; $i++){
-            \DB::table('products')->insert([
+            DB::table('products')->insert([
                 'name' => $faker->city,
                 'description' => $faker->realText(200),
                 'price' => rand(5000, 10000)/100,

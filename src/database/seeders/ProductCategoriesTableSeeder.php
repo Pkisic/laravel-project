@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use \DB;
 
 class ProductCategoriesTableSeeder extends Seeder
 {
@@ -13,12 +14,12 @@ class ProductCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('product_categories')->truncate();
+        DB::table('product_categories')->truncate();
         
         $faker = \Faker\Factory::create();
         
         for($i = 1; $i<=10; $i++){
-            \DB::table('product_categories')->insert([
+            DB::table('product_categories')->insert([
                 'priority' => $i,
                 'name' => $faker->jobTitle,
                 'description' => $faker->realText,

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use \DB;
 
 class SizesTableSeeder extends Seeder
 {
@@ -14,12 +15,12 @@ class SizesTableSeeder extends Seeder
     public function run()
     {
         $i = 0;
-        \DB::table('sizes')->truncate();
+        DB::table('sizes')->truncate();
         
         $sizeNames = ['XS','S','M','L','XL','XXL'];
         
         foreach($sizeNames as $sizeName){
-            \DB::table('sizes')->insert([
+            DB::table('sizes')->insert([
             'name' => $sizeName,
             'priority' => ++$i,
             'created_at' => date('Y-m-d H:i:s'),

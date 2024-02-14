@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use \DB;
 
 class BrandsTableSeeder extends Seeder
 {
@@ -13,12 +14,12 @@ class BrandsTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('brands')->truncate();
+        DB::table('brands')->truncate();
         
         $faker = \Faker\Factory::create();
         
         for($i = 1; $i <= 20; $i++){
-            \DB::table('brands')->insert([
+            DB::table('brands')->insert([
                 'name' => $faker->company,
                 'description' => $faker->realText,
                 'created_at' => $faker->dateTimeBetween('-6 months','now'),
