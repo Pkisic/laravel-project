@@ -1,4 +1,4 @@
-# Project Name
+# Laravel e-commerce website
 
 This is a dockerized Laravel application.
 
