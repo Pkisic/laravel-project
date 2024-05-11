@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 class Product extends Model {
 
@@ -59,15 +60,14 @@ class Product extends Model {
      * Returns a route to the detailed 
      * page for the current Product
      * 
-     * @return route
+     * @return string
      */
-    public function getFrontUrl() {
-        
+    public function getFrontUrl() : string
+    {
         return route('front.products.single',[
             'product' => $this->id,
             'seoSlug' => \Str::slug($this->name)
         ]);
-        
     }
     
     public function getPhoto($photoFieldName){
@@ -157,15 +157,13 @@ class Product extends Model {
      * 
      * @return Collection [App\Models\Product]
      */
-    public static function getFeaturedProducts(){
-        
-        $featured = self::query()
+    public static function getFeaturedProducts() : Collection
+    {
+        return self::query()
                 ->where('featured','=',1)
                 ->orderBy('created_at','DESC')
                 ->limit(10)
                 ->get();
-        
-        return $featured;
     }
     
     /**
@@ -173,18 +171,14 @@ class Product extends Model {
      * 
      * @return Collection [ App\Model\Product ]
      */
-    public function getRelatedProducts()
+    public function getRelatedProducts() : Collection
     {
-        $productQuery = Product::query()->with(['productCategory','brand']);
-        
-        $relatedProducts = $productQuery
+        return Product::query()->with(['productCategory','brand'])
                 ->where('product_category_id','=',$this->product_category_id)
                 ->where('id','!=',$this->id)
                 ->latest()
                 ->take(4)
                 ->get();
-        
-        return $relatedProducts;
     }
 
 
@@ -196,7 +190,8 @@ class Product extends Model {
      * 
      * @return $this
      */
-    public function toggleSetFeatured(){
+    public function toggleSetFeatured()
+    {
         ($this->featured) ? $this->featured = 0 : $this->featured = 1;
         return $this;
     }
@@ -207,14 +202,12 @@ class Product extends Model {
      * 
      * @return Collection [ App\Model\Product ]
      */
-    public function getProducts(){
-        
-        $products = self::query()
+    public function getProducts()
+    {
+        return self::query()
                 ->with(['brand','productCategory','sizes'])
                 ->orderBy('created_at','desc')
                 ->get();
-        
-        return $products;
     }
     
     public function deletePhotos(){

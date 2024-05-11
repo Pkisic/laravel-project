@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductCategory extends Model
 {
@@ -18,9 +19,9 @@ class ProductCategory extends Model
     public function products()
     {
         return $this->hasMany(
-                Product::class,
-                'product_category_id',
-                'id'
+            Product::class,
+            'product_category_id',
+            'id'
         );
     }
     
@@ -32,13 +33,12 @@ class ProductCategory extends Model
      * 
      * @return Collection [ \App\Model\ProductCategory ]
      */
-    public function getAllProductCategories(){
+    public static function getAllProductCategories() : Collection
+    {
         
-        $productCategories = ProductCategory::query()
-                                ->orderBy('priority')
-                                ->get();
-        
-        return $productCategories;
+        return ProductCategory::query()
+            ->orderBy('priority')
+            ->get();
     }
     
 }
